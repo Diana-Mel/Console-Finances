@@ -87,55 +87,45 @@ var finances = [
 ['Feb-2017', 671099]
 ];
 
+var total = 0;
 
-console.log("Total Number of Months: " + finances.length);
+for (var i=0; i < finances.length; i++){
+    total = total + finances[i][1]
+}
 
- var total = 0;
+var earningsArray = finances.map((el) => el[1]);
 
-    for (var i=0; i < finances.length; i++){
-        console.log(finances[i][1])
-        console.log ("At the moment, total amout equals ", total)
-        total = total + finances[i][1]
-        console.log ("Now, total amout equals ", total)
-    }
+var profitMonths = finances.filter((el) => el[1] > 0);
 
-   console.log("Total Amount of Profits", total) 
+var avgOfProfitAndLoss =
+    earningsArray.reduce((accVal, curVal) => accVal + curVal, 0) / finances.length; // get the average of all total and losses
 
-   const earningsArray = .map((el) => el[1]);
-
-const profitMonths = data.filter((el) => el[1] > 0);
-const salesOnProfitMonths = profitMonths
-  .map((el) => el[1])
-  .reduce((accVal, curVal) => accVal + curVal, 0);
-
-const avgOfProfitAndLoss =
-  earningsArray.reduce((accVal, curVal) => accVal + curVal, 0) / data.length; // get the average of all total and losses
-
-const maxMonth = {
-  monthName: '',
-  profit: 0,
+var maxMonth = {
+    monthName: '',
+    profit: 0,
 };
 
-const minMonth = {
-  monthName: '',
-  profit: 0,
+var minMonth = {
+    monthName: '',
+    profit: 0,
 };
 
-data.forEach((month) => {
-  if (month[1] > maxMonth.profit) {
+finances.forEach((month) => {
+    if (month[1] > maxMonth.profit) {
     maxMonth.monthName = month[0];
     maxMonth.profit = month[1];
-  }
+    }
 
-  if (month[1] < minMonth.profit) {
+    if (month[1] < minMonth.profit) {
     minMonth.monthName = month[0];
     minMonth.profit = month[1];
-  }
+    }
 
-  return { maxMonth, minMonth };
+    return { maxMonth, minMonth };
 });
 
-console.log('Total sale of profit months: ', salesOnProfitMonths);
-console.log('Total average : ', avgOfProfitAndLoss);
-console.log('The month with max profit is : ', maxMonth);
-console.log('The month with min profit is : ', minMonth);
+console.log("Total Number of Months: " + finances.length);
+console.log("Total in Profits", total); 
+console.log('Average Change: ', avgOfProfitAndLoss.toFixed(0));
+console.log('Greatest Increase in Profits: ', maxMonth);
+console.log('Greatest Decrease in Profits: ', minMonth);
