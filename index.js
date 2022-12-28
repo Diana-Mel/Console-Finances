@@ -96,13 +96,20 @@ for (var i=0; i < finances.length; i++){
 let result = finances.reduce((a, b, i) => {
     let d = (i > 1) ? a : {total: a[1], average: a[1], sumChange: 0, lastMonth: a[1], increase: a, decrease: a},
         change = b[1] - d.lastMonth
+        console.log(change)
 
     d.total += b[1]
+    console.log("Total Profits " + d.total)
     d.sumChange += change
+    console.log("Total Sum Change " + d.sumChange)
     d.lastMonth = b[1]
+    console.log("Only last Month " + d.lastMonth)
     d.average = d.sumChange / i
+    console.log("Average " + d.average)
     d.increase = (d.increase[1] > change) ? d.increase : [b[0], change]
+    console.log("Max Increase: " + d.increase)
     d.decrease = (d.decrease[1] < change) ? d.decrease : [b[0], change]
+    console.log("Max Decrease: " + d.decrease)
     return d
 })
 
