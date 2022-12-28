@@ -105,8 +105,9 @@ let result = finances.reduce(function(a, b, i){
     return d
 })
 
+console.log ('Financial Analysis')
 console.log("Total Months: " + finances.length);
 console.log("Total Profits: " + total); 
-console.log("Average Change: " + result.average.toFixed(0))
+console.log("Average Change: " + result.average.toFixed(2))
 console.log("Greatest Increase in Profits: " + result.increase)
 console.log("Greatest Decrease in Profits: " + result.decrease)
