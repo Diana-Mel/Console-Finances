@@ -93,39 +93,18 @@ for (var i=0; i < finances.length; i++){
     total = total + finances[i][1]
 }
 
-var earningsArray = finances.map((el) => el[1]);
+let result = finances.reduce((a, b, i) => {
+    let d = (i > 1) ? a : {total: a[1], average: a[1], sumChange: 0, lastMonth: a[1], increase: a, decrease: a},
+        change = b[1] - d.lastMonth
 
-var profitMonths = finances.filter((el) => el[1] > 0);
-
-var avgOfProfitAndLoss =
-    earningsArray.reduce((accVal, curVal) => accVal + curVal, 0) / finances.length; // get the average of all total and losses
-
-var maxMonth = {
-    monthName: '',
-    profit: 0,
-};
-
-var minMonth = {
-    monthName: '',
-    profit: 0,
-};
-
-finances.forEach((month) => {
-    if (month[1] > maxMonth.profit) {
-    maxMonth.monthName = month[0];
-    maxMonth.profit = month[1];
-    }
-
-    if (month[1] < minMonth.profit) {
-    minMonth.monthName = month[0];
-    minMonth.profit = month[1];
-    }
-
-    return { maxMonth, minMonth };
-});
+    d.total += b[1]
+    d.sumChange += change
+    d.lastMonth = b[1]
+    d.average = d.sumChange / i
+    d.increase = (d.increase[1] > change) ? d.increase : [b[0], change]
+    d.decrease = (d.decrease[1] < change) ? d.decrease : [b[0], change]
+    return d
+})
 
 console.log("Total Number of Months: " + finances.length);
-console.log("Total in Profits", total); 
-console.log('Average Change: ', avgOfProfitAndLoss.toFixed(0));
-console.log('Greatest Increase in Profits: ', maxMonth);
-console.log('Greatest Decrease in Profits: ', minMonth);
+console.log("Total Amount of Profits: " + total); 
